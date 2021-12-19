@@ -1,6 +1,7 @@
 # insect classication app by Pranav Shinde.
 import streamlit as st
-def main():
+from PIL import Image
+def ain():
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
     class_btn = st.button("Classify")
     if file_uploaded is not None:    
@@ -10,5 +11,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    ain()
 
