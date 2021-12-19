@@ -1,4 +1,4 @@
-// insect classication app by Pranav Shinde.
+# insect classication app by Pranav Shinde.
 import streamlit as st
 def main():
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
