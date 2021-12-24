@@ -17,7 +17,7 @@ for i, image_name in enumerate(my_images):
         dataset.append(np.array(image))
 x = np.array(dataset)
 
-str=st.text_input(label="Enter the directory name in which file to be stored\n (Enter complete path for e.g. 'C:\Users\Downloads\')", value="", max_chars=None, key=None, type="default", help=None, autocomplete=None, on_change=None, args=None, kwargs=None, *, placeholder=None)
+str=st.text_input(label="Enter the directory name in which file to be stored\n (Enter complete path for e.g. 'C:\Users\Downloads\')")
 i = 0
 for batch in datagen.flow(x, batch_size=16,
                           save_to_dir= r'str',
