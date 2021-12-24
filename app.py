@@ -3,12 +3,29 @@ import streamlit as st
 from PIL import Image
 def ain():
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
-    class_btn = st.button("Classify")
+    class_btn = st.button("Create")
     if file_uploaded is not None:    
-        image = Image.open(file_uploaded)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
-        plt.imshow(image)
+        my_images = Image.open(file_uploaded)
+        st.image(my_images, caption='Uploaded Image', use_column_width=True)
+        plt.imshow(my_images)
+        
+for i, image_name in enumerate(my_images):    
+    if (image_name.split('.')[1] == 'jpg'):        
+        image = io.imread(image_directory + image_name)        
+        image = Image.fromarray(image, 'RGB')        
+        image = image.resize((SIZE,SIZE)) 
+        dataset.append(np.array(image))
+x = np.array(dataset)
 
+str=st.text_input(label="Enter the directory name in which file to be stored\n (Enter complete path for e.g. 'C:\Users\Downloads\')", value="", max_chars=None, key=None, type="default", help=None, autocomplete=None, on_change=None, args=None, kwargs=None, *, placeholder=None)
+i = 0
+for batch in datagen.flow(x, batch_size=16,
+                          save_to_dir= r'str',
+                          save_prefix='dr',
+                          save_format='jpg'):    
+    i += 1    
+    if i > 10:        
+        break
 
 if __name__ == "__main__":
     ain()
