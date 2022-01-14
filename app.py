@@ -1,7 +1,7 @@
 # insect classication app by Pranav Shinde.
 import streamlit as st
 from PIL import Image
-import matplotlib.pyplot as plt
+import matplotlib as plt
 def ain():
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
     class_btn = st.button("Create")
