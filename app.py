@@ -13,13 +13,13 @@ def ain():
 
 if __name__ == "__main__":
     ain()
-    for i, image_name in enumerate(my_images):    
-    if (image_name.split('.')[1] == 'jpg'):        
-        image = io.imread(image_directory + image_name)        
-        image = Image.fromarray(image, 'RGB')        
-        image = image.resize((SIZE,SIZE)) 
-        dataset.append(np.array(image))
-    x = np.array(dataset)
+    for i, image_name in enumerate(my_images):  
+        if (image_name.split('.')[1] == 'jpg'):        
+            image = io.imread(image_directory + image_name)        
+            image = Image.fromarray(image, 'RGB')        
+            image = image.resize((SIZE,SIZE)) 
+            dataset.append(np.array(image))
+        x = np.array(dataset)
 
     str=st.text_input(" Enter the directory name in which file to be stored \n ")
     i = 0
