@@ -2,18 +2,17 @@
 import streamlit as st
 from PIL import Image
 import matplotlib as plt
-def ain():
+ 
+       
+
+if __name__ == "__main__":
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
     class_btn = st.button("Create")
     if file_uploaded is not None:    
         my_images = Image.open(file_uploaded)
         st.image(my_images, caption='Uploaded Image', use_column_width=True)
         plt.imshow(my_images)
-        
-
-
-if __name__ == "__main__":
-    ain()
+   
     for i, image_name in enumerate(my_images):  
         if (image_name.split('.')[1] == 'jpg'):        
             image = io.imread(image_directory + image_name)        
@@ -28,5 +27,3 @@ if __name__ == "__main__":
         i += 1
         if i > 10:
             break
-
-
