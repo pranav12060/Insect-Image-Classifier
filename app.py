@@ -1,7 +1,7 @@
 # insect classication app by Pranav Shinde.
 import streamlit as st
 from PIL import Image
-import matplotlib as plt
+
  
 if __name__ == "__main__":
     file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
