@@ -10,11 +10,12 @@ def ain():
    
  for i, image_name in enumerate(my_images):
   if (image_name.split('.')[1] == 'jpg'):
+   
    image = io.imread(image_directory + image_name)        
    image = Image.fromarray(image, 'RGB')        
    image = image.resize((SIZE,SIZE)) 
-        dataset.append(np.array(image))
-   x = np.array(dataset)
+   dataset.append(np.array(image))
+  x = np.array(dataset)
  str=st.text_input(" Enter the directory name in which file to be stored \n ")
  i = 0
  for batch in datagen.flow(x, batch_size=16,save_to_dir= r'str',save_prefix='dr',save_format='jpg'):
