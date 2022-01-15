@@ -9,7 +9,7 @@ if __name__ == "__main__":
     if file_uploaded is not None:    
         my_images = Image.open(file_uploaded)
         st.image(my_images, caption='Uploaded Image', use_column_width=True)
-        plt.imshow(my_images)
+        my_images.show()
    
     for i, image_name in enumerate(my_images):  
         if (image_name.split('.')[1] == 'jpg'):        
