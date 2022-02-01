@@ -26,9 +26,9 @@ if __name__ == "__main__":
  img_file = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
  if img_file is not None:
      st.image(img_file,use_column_width=False)
-     save_image_path = './upload_images/'+img_file.name
-     with open(save_image_path, "wb") as f:
-         f.write(img_file.getbuffer())
+     save_image_path = img_file.name
+     #with open(save_image_path, "wb") as f:
+         #f.write(img_file.getbuffer())
      if st.button("Predict"):
          ain(save_image_path)
      #st.success("Predicted Bird is: "+result)
