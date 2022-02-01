@@ -32,5 +32,5 @@ if __name__ == "__main__":
      if st.button("Predict"):
          ain(save_image_path)
      #st.success("Predicted Bird is: "+result)
-main()
+
     
