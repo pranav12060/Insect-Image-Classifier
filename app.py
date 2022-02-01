@@ -23,7 +23,7 @@ if __name__ == "__main__":
  st.image(img1,use_column_width=False)
  st.title("Insect Classification By Pranav Shinde")
  #st.markdown('''<h4 style='text-align: left; color: #d73b5c;'>* Data is based "270 Bird Species also see 70 Sports Dataset"</h4>''',unsafe_allow_html=True)
- file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
+ img_file = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
  if img_file is not None:
      st.image(img_file,use_column_width=False)
      save_image_path = './upload_images/'+img_file.name
@@ -32,4 +32,5 @@ if __name__ == "__main__":
      if st.button("Predict"):
          ain(save_image_path)
      #st.success("Predicted Bird is: "+result)
+main()
     
