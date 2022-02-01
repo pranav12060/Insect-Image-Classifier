@@ -1,14 +1,7 @@
 # insect classication app by Pranav Shinde.
 import streamlit as st
 from PIL import Image
-def ain():
- 
- 
- if file_uploaded is not None:    
-        my_images = Image.open(file_uploaded)
-        st.image(my_images, caption='Uploaded Image', use_column_width=True)
-        my_images.show()
-   
+def ain(image_name):
  if (image_name.split('.')[1] == 'jpg'):
   image = io.imread(image_directory + image_name)        
   image = Image.fromarray(image, 'RGB')        
@@ -24,8 +17,25 @@ def ain():
         
     
 if __name__ == "__main__":
+ img1 = Image.open('./meta/logo1.png')
+ img1 = img1.resize((350,350))
+ st.image(img1,use_column_width=False)
+ st.title("Insect Classification By Pranav Shinde")
+ #st.markdown('''<h4 style='text-align: left; color: #d73b5c;'>* Data is based "270 Bird Species also see 70 Sports Dataset"</h4>''',
+                unsafe_allow_html=True)
  file_uploaded = st.file_uploader("Choose File", type=["png","jpg","jpeg"])
- class_btn = st.button("Create")
- ain()
+  if img_file is not None:
+   st.image(img_file,use_column_width=False)
+   save_image_path = './upload_images/'+img_file.name
+   with open(save_image_path, "wb") as f:
+    f.write(img_file.getbuffer())
+   if st.button("Predict"):
+    ain(save_image_path)
+    #st.success("Predicted Bird is: "+result)
+    '''   my_images = Image.open(file_uploaded)
+        st.image(my_images, caption='Uploaded Image', use_column_width=True)
+        my_images.show()
+        class_btn = st.button("Create")'''
+        
 
 
