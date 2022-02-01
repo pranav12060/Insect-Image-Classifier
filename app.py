@@ -3,7 +3,7 @@ import streamlit as st
 from PIL import Image
 def ain(image_name):
  if (image_name.split('.')[1] == 'jpg'):
-  image = io.imread(image_directory + image_name)        
+  image = io.imread(image_name)        
   image = Image.fromarray(image, 'RGB')        
   image = image.resize((SIZE,SIZE)) 
   dataset.append(np.array(image))
