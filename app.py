@@ -2,12 +2,12 @@ import streamlit as st
 import time
 from PIL import Image
 import numpy as np
-from keras.preprocessing.image import load_img,img_to_array
+#from keras.preprocessing.image import image
 import cv2
 
 def ain(save_image_path):
     
-    img=load_img(save_image_path,target_size=(224,224,3))
+    img=image.load_img(save_image_path,target_size=(224,224,3))
     img=img_to_array(img)
     img=img/255
     img_file=np.expand_dims(img,[0])
