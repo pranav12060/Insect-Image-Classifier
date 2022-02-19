@@ -1,99 +1,112 @@
+import cv2
+import numpy as np 
+import os
+from sklearn.svm import SVC
+from sklearn.preprocessing import StandardScaler
+import joblib
+
+
 import streamlit as st
 import time
 from PIL import Image
 import numpy as np
-#from keras.preprocessing.image import image
-import cv2
+from keras.preprocessing.image import load_img,img_to_array
 
-def ain(save_image_path):
+kmeans, scale, svm, im_features =joblib.load("bovw.pkl")
+def getDescriptors(sift, img):
     
-    img=image.load_img(save_image_path,target_size=(224,224,3))
-    img=img_to_array(img)
-    img=img/255
-    img_file=np.expand_dims(img,[0])
-    
-    st.write("SIFT algorithm is using")
-    '''
+    kp, des = sift.detectAndCompute(img, None)
+    return des
+def readImage(img_path):
+    img = cv2.imread(img_path, 0)
+    return cv2.resize(img,(150,150))
+def vstackDescriptors(descriptor_list):
+    descriptors = np.array(descriptor_list[0])
+    for descriptor in descriptor_list[1:]:
+        descriptors = np.vstack((descriptors, descriptor)) 
+    return descriptors
+def extractFeatures(kmeans, descriptor_list, image_count, no_clusters):
+    im_features = np.array([np.zeros(no_clusters) for i in range(image_count)])
+    for i in range(image_count):
+        for j in range(len(descriptor_list[i])):
+            feature = descriptor_list[i][j]
+            feature = feature.reshape(1, 128)
+            idx = kmeans.predict(feature)
+            im_features[i][idx] += 1
+    return im_features
+def normalizeFeatures(scale, features):
+    return scale.transform(features)
+def testModel(path, kmeans, scale, svm, im_features, no_clusters, kernel):
+    count = 0
+    true = []
+    descriptor_list = []
+
+    name_dict =	{
+        "0": "Aphid",
+        "1": "caterpillar",
+        "2":"corn flea beetle",
+        "3":"Spider Mites",
+        "4":"whitefly"
+      
+    }
+
     sift = cv2.SIFT_create()
-    kry_points,descriptors = sift.detectAndCompute(img_file,None)
-    final_image = cv2.drawKeypoints(img_file,kry_points,None)
-    st.write("final image after SIFT")
-    st.image(final_image,use_column_width=False)'''
-    
-        
 
-def waitt():
-    with st.spinner(text='In progress'):
-        
-        time.sleep(100)
-        
-def aod(img_file):
-    st.write('Hiiiiiiiiiiiiiiii')
-    if img_file is not None:
-        #img2=img_file.resize((200,100))
-        st.image(img_file,use_column_width=False)
-        save_image_path = './'+img_file.name
-        st.write('HI pranav')
-        with open(save_image_path, "wb") as f:
-            f.write(img_file.getbuffer())
-        if st.button("Predict"):
-            ain(save_image_path)
-            print(save_image_path)
-            print("code succeed")
+    img_path=path
+    img = readImage(img_path)
+    des = getDescriptors(sift, img)
+    if(des is not None):
+        count += 1
+        descriptor_list.append(des)
 
-        
-if __name__ == "__main__":
-    #[theme]
-    #st.base="light"
+    descriptors = vstackDescriptors(descriptor_list)
+    test_features = extractFeatures(kmeans, descriptor_list, count, no_clusters)
+    test_features = scale.transform(test_features)    
+    kernel_test = test_features
+    if(kernel == "precomputed"):
+        kernel_test = np.dot(test_features, im_features.T)
    
-    st.balloons()
-    #st.selectbox('Pick one', ['cats', 'dogs'])
+    predictions = [name_dict[str(int(i))] for i in svm.predict(kernel_test)]
+    print("Given picture is of:")
+    print(predictions)
+    return predictions
+
+
+
+
+
+def run():
     img1 = Image.open(r'C:\Users\Pranav Shinde\Downloads\BE project files\streamlut\butterfly.jpg')
     img1 = img1.resize((350,250))
     st.image(img1,use_column_width=False)
-    st.title("Insect Classification ")
+    st.title("Insect Classification")
     st.markdown('''<h4 style='text-align: middle; color: #8b70e5;font-family: Quando;font-size: 1em;text-transform:capitalize; '>Primates need good nutrition, to begin with. Not only fruits and plants, but insects as well</h4>''',unsafe_allow_html=True)
 
-    activity1 = ["Identification","Information"]
-    choice = st.sidebar.selectbox("Select Function",activity1)
+    img_file = st.file_uploader("Choose an Image of Insect", type=["jpg", "png"])
+    if img_file is not None:
+        st.write('uploaded image')
+        st.image(img_file,use_column_width=False)
+        save_image_path = './'+img_file.name
+        with open(save_image_path, "wb") as f:
+            f.write(img_file.getbuffer())
 
-    if choice=='Identification':
-        t=st.button('Upload file')
-        a=st.button('Click picture')
-        if (t):
-            img_file = st.file_uploader("Upload File or click picture", type=["png","jpg","jpeg"])
-            time.sleep(10)
-            aod(img_file)
-            
-            st.success('Done')
-            
-            
-                
-    
-            
-        elif (a):
-            
-            img_file = st.camera_input('Take a picture')
-            st.success('Done')
+        if st.button("Predict"):
+            result = testModel(save_image_path, kmeans, scale, svm, im_features, 10, "precomputed")
+            st.success("Predicted Bird is: "+result[0])
+run()
 
-            if img_file is not None:
-                #img2=img_file.resize((200,100))
-                st.image(img_file,use_column_width=False)
-                save_image_path = './'+img_file.name
-                st.write('HI pranav')
-                with open(save_image_path, "wb") as f:
-                    f.write(img_file.getbuffer())
-                    
-                if st.button("Predict"):
-                    #ain(save_image_path)
-                    print(save_image_path)
-                    print("code succeed")
-                    
-    if choice=='Information':
-        st.write('Whenever a farmer plants a crop, there are a lot of things that they are counting on to help grow high quality grain. \nFor Greg and his family, they need warm temperatures to help the seed sprout and poke out of the ground. Then they need timely rains, along with plenty of sunshine to help that grain grow. But they also need to make sure that hungry insects or pesky fungal diseases don’t eat away at that crop. The good news is, there are products today that can help prevent some of the pest damage. On today’s tour we talk with Greg about something they use called seed treatments. This coating, that covers each seed, is used to protect it at its most delicate stage of lifeSo come for a tour to find out why Greg thinks this is better than other ways of protecting these little seeds and seedlings.')
+
     
-            
-        #st.success("Predicted Bird is: "+result)
+
+
+
+
+
+
+
+    
+
+      
 
 
 
