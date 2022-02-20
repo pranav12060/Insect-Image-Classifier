@@ -8,8 +8,7 @@ numpy>=1.18.4
 tensorflow
 
 scikit-image==0.19.1
-scikit-lea
-rn==0.24.0
+scikit-learn==0.24.0
 scipy>=1.4.1
 seaborn>=0.11.1
 Pillow>=8.4.0
