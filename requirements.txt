@@ -4,7 +4,7 @@ Keras-Preprocessing>=1.1.2
 matplotlib>=3.2.1
 numpy>=1.18.4
 
-PIL
+
 tensorflow
 
 scikit-image==0.19.1
