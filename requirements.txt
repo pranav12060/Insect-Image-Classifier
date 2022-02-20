@@ -11,3 +11,4 @@ Pillow>=8.4.0
 sklearn>=0.0
 streamlit>=1.5.0
 opencv-python-headless
+Image
