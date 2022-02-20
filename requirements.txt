@@ -4,8 +4,12 @@ Keras-Preprocessing>=1.1.2
 matplotlib>=3.2.1
 numpy>=1.18.4
 
+PIL
+tensorflow
+
 scikit-image==0.19.1
-scikit-learn==0.24.0
+scikit-lea
+rn==0.24.0
 scipy>=1.4.1
 seaborn>=0.11.1
 Pillow>=8.4.0
