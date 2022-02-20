@@ -77,7 +77,7 @@ def testModel(path, kmeans, scale, svm, im_features, no_clusters, kernel):
 
 def run():
     img1 = Image.open('./bug.jpg')
-    img1 = img1.resize((350,550))
+    img1 = img1.resize((350,300))
     st.image(img1,use_column_width=False)
     st.title("Insect Classification")
     st.markdown('''<h4 style='text-align: middle; color: #8b70e5;font-family: Quando;font-size: 1em;text-transform:capitalize; '>Primates need good nutrition, to begin with. Not only fruits and plants, but insects as well</h4>''',unsafe_allow_html=True)
