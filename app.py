@@ -76,9 +76,9 @@ def testModel(path, kmeans, scale, svm, im_features, no_clusters, kernel):
 
 
 def run():
-    #img1 = Image.open('./butterfly.jpg')
-    #img1 = img1.resize((350,250))
-    #st.image(img1,use_column_width=False)
+    img1 = Image.open('./bug.jpg')
+    img1 = img1.resize((350,250))
+    st.image(img1,use_column_width=False)
     st.title("Insect Classification")
     st.markdown('''<h4 style='text-align: middle; color: #8b70e5;font-family: Quando;font-size: 1em;text-transform:capitalize; '>Primates need good nutrition, to begin with. Not only fruits and plants, but insects as well</h4>''',unsafe_allow_html=True)
 
@@ -86,7 +86,7 @@ def run():
     if img_file is not None:
         st.write('uploaded image')
         st.image(img_file,use_column_width=False)
-        save_image_path = './'+img_file.name
+        save_image_path = './images_uploaded_on_heroku/'+img_file.name
         with open(save_image_path, "wb") as f:
             f.write(img_file.getbuffer())
 
