@@ -76,9 +76,9 @@ def testModel(path, kmeans, scale, svm, im_features, no_clusters, kernel):
 
 
 def run():
-    img1 = Image.open(r'C:\Users\Pranav Shinde\Downloads\BE project files\streamlut\butterfly.jpg')
-    img1 = img1.resize((350,250))
-    st.image(img1,use_column_width=False)
+    #img1 = Image.open('./butterfly.jpg')
+    #img1 = img1.resize((350,250))
+    #st.image(img1,use_column_width=False)
     st.title("Insect Classification")
     st.markdown('''<h4 style='text-align: middle; color: #8b70e5;font-family: Quando;font-size: 1em;text-transform:capitalize; '>Primates need good nutrition, to begin with. Not only fruits and plants, but insects as well</h4>''',unsafe_allow_html=True)
 
@@ -93,7 +93,9 @@ def run():
         if st.button("Predict"):
             result = testModel(save_image_path, kmeans, scale, svm, im_features, 10, "precomputed")
             st.success("Predicted Bird is: "+result[0])
-run()
+            
+if __name__ == "__main__":
+    run()
 
 
     
