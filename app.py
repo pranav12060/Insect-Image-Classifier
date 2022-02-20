@@ -10,7 +10,7 @@ import streamlit as st
 import time
 from PIL import Image
 import numpy as np
-from keras.preprocessing.image import load_img,img_to_array
+
 
 kmeans, scale, svm, im_features =joblib.load("bovw.pkl")
 def getDescriptors(sift, img):
