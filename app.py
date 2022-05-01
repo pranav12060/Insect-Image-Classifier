@@ -4,7 +4,7 @@ import os
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 import joblib
-from streamlit_option_menu import option_menu
+
 
 
 import streamlit as st
